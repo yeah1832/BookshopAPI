@@ -6,7 +6,14 @@ const app = express();
 const dotenv = require('dotenv');
 dotenv.config();
 
-app.listen(process.env.PORT);
+// 백엔드
+const cors = require("cors");
+const corsOptions = {
+    origin: 'http://localhost:3000',
+    exposedHeaders: ["Authorization"],
+};
+  
+  app.use(cors(corsOptions));
 
 const userRouter = require('./routes/users');
 const bookRouter = require('./routes/books');
@@ -21,3 +28,8 @@ app.use("/category", categoryRouter);
 app.use("/likes", likeRouter);
 app.use("/carts", cartRouter);
 app.use("/orders", orderRouter);
+
+app.listen(process.env.PORT);
+
+
+
